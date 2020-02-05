@@ -54,6 +54,7 @@ go run main.go // 将会自动包依赖安装
 
 ```shell
 git clone https://github.com/JaxChan25/borderland.git
+go env -w GOPROXY=https://goproxy.cn,direct
 cd borderland
 go run main.go
 ```
