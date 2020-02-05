@@ -1,6 +1,6 @@
 # Borderland
 
-个人使用博客Borderland，意为无主之地的意思，也意为无聊牢骚之地。
+个人使用博客Borderland，意为无主之地的意思，也意为无聊之地。
 主要使用go -> gin ->singo框架进行开发。
 
 ## 框架介绍
