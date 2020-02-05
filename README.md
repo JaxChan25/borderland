@@ -52,6 +52,22 @@ go run main.go // 将会自动包依赖安装
 
 ## 运行
 
+1. 安装Mysql和[Redis](https://blog.csdn.net/weixin_40976261/article/details/89854520)
+2. 设置数据库参数
+
+在项目根目录创建.env文件设置环境变量便于使用。
+需要手动创库，但是会自动创表。
+
+```shell
+MYSQL_DSN="db_user:db_password@/db_name?charset=utf8&parseTime=True&loc=Local" # Mysql连接地址
+REDIS_ADDR="127.0.0.1:6379" # Redis端口和地址
+REDIS_PW="" # Redis连接密码
+REDIS_DB="" # Redis库从0到10
+SESSION_SECRET="setOnProducation" # Seesion密钥，必须设置而且不要泄露
+GIN_MODE="debug"
+```
+
+3. 在任意文件夹下clone项目（不要在GOPATH和GOROOT的src下clone）并且运行
 ```shell
 git clone https://github.com/JaxChan25/borderland.git
 go env -w GOPROXY=https://goproxy.cn,direct
