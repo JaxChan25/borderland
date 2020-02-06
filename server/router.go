@@ -59,6 +59,17 @@ func NewRouter() *gin.Engine {
 		 */
 		v1.POST("user/login", api.UserLogin)
 
+		/**
+		* showdoc
+		* @catalog 用户相关
+		* @title 站长信息
+		* @description 获取站长信息的api
+		* @method get
+		* @url /api/v1/user/owner
+		* @return  {"code":0,"data":{"name":"陈亮","profession":"在读三年级本科生","school":"华南理工大学","address":"广东广州","email":"501892778@qq.com","hobby":"任何有趣的事"},"msg":""}
+		 */
+		v1.GET("user/owner", api.StaticOwner)
+
 		// 需要登录保护的
 		auth := v1.Group("")
 		auth.Use(middleware.AuthRequired())
@@ -70,7 +81,7 @@ func NewRouter() *gin.Engine {
 			* @description 获取当前用户信息api
 			* @method get
 			* @url /api/v1/user/me
-			* @return  {"code":0,"data":{"id":1,"user_name":"explorer","nickname":"lovelyjax","status":"active","avatar":"","created_at":1580879384},"msg":""}
+			* @return {"code":0,"data":{"id":1,"user_name":"explorer","nickname":"lovelyjax","status":"active","avatar":"","created_at":1580879384},"msg":""}
 			 */
 			auth.GET("user/me", api.UserMe)
 
