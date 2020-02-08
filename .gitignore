@@ -1,3 +1,4 @@
 .vscode/
 .env
 go.sum
+showdoc_api.sh

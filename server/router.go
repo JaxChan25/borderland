@@ -70,6 +70,22 @@ func NewRouter() *gin.Engine {
 		 */
 		v1.GET("user/owner", api.StaticOwner)
 
+		/**
+		* showdoc
+		* @catalog 云存储相关
+		* @title 获取阿里云存储签名
+		* @description 获取阿里云存储签名的api。
+		* @method post
+		* @url /api/v1/upload/token
+		* @return {"code":0,"data":{"filename":"avatar/06d62bcc-fa8c-44f8-9f18-5f7716927350.jpg","getapi":"http://borderland.oss-cn-shenzhen.aliyuncs.com/avatar%2F06d62bcc-fa8c-44f8-9f18-5f7716927350.jpg?Expires=1581143926\u0026OSSAccessKeyId=LTAI4FodY2q3iXWCJKXHG17u\u0026Signature=f851azSCvkhl1AD50gBsLVrl9ts%3D","putapi":"http://borderland.oss-cn-shenzhen.aliyuncs.com/avatar%2F06d62bcc-fa8c-44f8-9f18-5f7716927350.jpg?Expires=1581143926\u0026OSSAccessKeyId=LTAI4FodY2q3iXWCJKXHG17u\u0026Signature=BZsx4NbU4AhDjmsPuOcdinyJDGc%3D"},"msg":""}
+		* @return_param filename string 将要上传的文件的文件名
+		* @return_param putapi string 真正进行上传文件的url地址
+		* @return_param getapi string 上传文件后，访问文件的api地址
+		* @remark 有必要阐述一下云存储流程。本api实际上只是进行签名的，访问本api不需要带任何访问参数，只是告诉阿里云，我将要上传什么信息了。拿到putapi后，需要使用put请求，header需要指定Content-Type为image/jpg，body里面放应该上传的二进制文件，成功的话不会返回任何信息。然后可以通过getapi访问上传后的文件。 两个api签名都只有十分钟的时效，过了之后需要重新申请签名。
+
+		 */
+		v1.POST("upload/token", api.UploadToken)
+
 		// 需要登录保护的
 		auth := v1.Group("")
 		auth.Use(middleware.AuthRequired())
