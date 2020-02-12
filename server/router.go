@@ -86,6 +86,19 @@ func NewRouter() *gin.Engine {
 		 */
 		v1.POST("upload/token", api.UploadToken)
 
+		/**
+		* showdoc
+		* @catalog 文章相关
+		* @title 添加文章
+		* @description 添加文章的api。
+		* @method post
+		* @url /api/v1/article/add
+		* @param title 必选 string 文章标题
+		* @param catalog 必选 string 文章列别
+		* @return {"code":0,"data":{"id":1,"title":"自序","content":"","catalog":"建站日记","created_at":1581488171},"msg":""}
+		 */
+		v1.POST("article/add", api.ArticlePost)
+
 		// 需要登录保护的
 		auth := v1.Group("")
 		auth.Use(middleware.AuthRequired())
@@ -111,6 +124,7 @@ func NewRouter() *gin.Engine {
 			* @return {"code":0,"msg":"登出成功"}
 			 */
 			auth.DELETE("user/logout", api.UserLogout)
+
 		}
 	}
 	return r
