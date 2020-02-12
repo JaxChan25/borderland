@@ -8,23 +8,33 @@ type Article struct {
 	Title     string `json:"title"`
 	Content   string `json:"content"`
 	Catalog   string `json:"catalog"`
-	CreatedAt int64  `json:"created_at"`
+	CreatedAt string `json:"created_at"`
 }
 
 // BuildArticle 序列化文章
 func BuildArticle(article model.Article, content string) Article {
+
 	return Article{
 		ID:        article.ID,
 		Title:     article.Title,
 		Content:   content,
 		Catalog:   article.Catalog,
-		CreatedAt: article.CreatedAt.Unix(),
+		CreatedAt: article.CreatedAt.Format("2006年1月2日 15:04:05"),
 	}
+
 }
 
-// BuildArticleResponse 序列化文章响应
-func BuildArticleResponse(article model.Article, content string) Response {
-	return Response{
-		Data: BuildArticle(article, content),
+// BuildArticleResponse 序列化单篇文章响应
+func BuildArticleResponse(article model.Article, content string) Article {
+	return BuildArticle(article, content)
+}
+
+// BuildArticlesResponse 序列化多篇文章响应
+func BuildArticlesResponse(items []model.Article) (articles []Article) {
+
+	for _, item := range items {
+		articles = append(articles, BuildArticle(item, ""))
 	}
+	return articles
+
 }

@@ -42,5 +42,7 @@ func (service *ArticlePostService) Post() serializer.Response {
 		return serializer.ParamErr("写入文章失败", err)
 	}
 
-	return serializer.BuildArticleResponse(article, "")
+	return serializer.Response{
+		Data: serializer.BuildArticleResponse(article, ""),
+	}
 }

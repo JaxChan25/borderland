@@ -19,3 +19,17 @@ func ArticlePost(c *gin.Context) {
 	}
 
 }
+
+// ShowArticle 取得单个article文件
+func ShowArticle(c *gin.Context) {
+	service := service.ShowArticleService{}
+	res := service.Show(c.Param("id"))
+	c.JSON(200, res)
+}
+
+// ListArticle 取得所有article文件
+func ListArticle(c *gin.Context) {
+	service := service.ListArticleService{}
+	res := service.List()
+	c.JSON(200, res)
+}

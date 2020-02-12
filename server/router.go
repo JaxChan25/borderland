@@ -92,12 +92,35 @@ func NewRouter() *gin.Engine {
 		* @title 添加文章
 		* @description 添加文章的api。
 		* @method post
-		* @url /api/v1/article/add
+		* @url /api/v1/article
 		* @param title 必选 string 文章标题
 		* @param catalog 必选 string 文章列别
 		* @return {"code":0,"data":{"id":1,"title":"自序","content":"","catalog":"建站日记","created_at":1581488171},"msg":""}
 		 */
-		v1.POST("article/add", api.ArticlePost)
+		v1.POST("article", api.ArticlePost)
+
+		/**
+		* showdoc
+		* @catalog 文章相关
+		* @title 具体内容文章
+		* @description 查看文章具体内容的api。
+		* @method post
+		* @url /api/v1/article/id
+		* @param id 必选 int 主键
+		* @return {"code":0,"data":{"id":1,"title":"自序","content":"# 为什么要搭博客","catalog":"建站日记","created_at":"2020年2月12日 14:16:11"},"msg":""}
+		 */
+		v1.GET("article/:id", api.ShowArticle)
+
+		/**
+		* showdoc
+		* @catalog 文章相关
+		* @title 文章列表
+		* @description 查看文章具体内容的api。
+		* @method post
+		* @url /api/v1/articles
+		* @return {"code":0,"data":[{"id":1,"title":"自序","content":"","catalog":"建站日记","created_at":"2020年2月12日 14:16:11"},{"id":2,"title":"测试","content":"","catalog":"建站日记","created_at":"2020年2月12日 17:50:44"},{"id":3,"title":"测试2","content":"","catalog":"建站日记","created_at":"2020年2月12日 17:52:30"}],"msg":""}
+		 */
+		v1.GET("articles", api.ListArticle)
 
 		// 需要登录保护的
 		auth := v1.Group("")
