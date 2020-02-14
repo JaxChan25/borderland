@@ -3,8 +3,7 @@ package service
 import (
 	"borderland/model"
 	"borderland/serializer"
-	"io/ioutil"
-	"os"
+	"borderland/util"
 )
 
 // ShowArticleService 文章详情的服务
@@ -26,9 +25,13 @@ func (service *ShowArticleService) Show(id string) serializer.Response {
 	}
 
 	title := article.Title
-	filePath := os.Getenv("ARTICLE_ROOT") + title + ".md"
 
-	content, err := ioutil.ReadFile(filePath)
+	// filePath := os.Getenv("ARTICLE_ROOT") + title + ".md"
+	// content, err := ioutil.ReadFile(filePath)
+
+	objectName := "article/" + title + ".md"
+	content, err := util.GetOssStream(objectName)
+
 	if err != nil {
 		return serializer.Response{
 			Code:  50001,
@@ -38,6 +41,6 @@ func (service *ShowArticleService) Show(id string) serializer.Response {
 	}
 
 	return serializer.Response{
-		Data: serializer.BuildArticleResponse(article, string(content)),
+		Data: serializer.BuildArticleResponse(article, content),
 	}
 }
