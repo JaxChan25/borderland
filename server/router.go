@@ -107,7 +107,7 @@ func NewRouter() *gin.Engine {
 		* @method post
 		* @url /api/v1/article/id
 		* @param id 必选 int 主键
-		* @return {"code":0,"data":{"id":1,"title":"自序","content":"# 为什么要搭博客","catalog":"建站日记","created_at":"2020年2月12日 14:16:11"},"msg":""}
+		* @return {"code":0,"data":{"id":1,"title":"自序","content":"# 为什么要搭博客","catalog":"建站日记","view": 4,"created_at":"2020年2月12日 14:16:11"},"msg":""}
 		 */
 		v1.GET("article/:id", api.ShowArticle)
 
@@ -121,6 +121,18 @@ func NewRouter() *gin.Engine {
 		* @return {"code":0,"data":[{"id":1,"title":"自序","content":"","catalog":"建站日记","created_at":"2020年2月12日 14:16:11"},{"id":2,"title":"测试","content":"","catalog":"建站日记","created_at":"2020年2月12日 17:50:44"},{"id":3,"title":"测试2","content":"","catalog":"建站日记","created_at":"2020年2月12日 17:52:30"}],"msg":""}
 		 */
 		v1.GET("articles", api.ListArticle)
+
+		/**
+		* showdoc
+		* @catalog 排行相关
+		* @title 文章总排行top10文章
+		* @description 查看文章总排行top10的api。
+		* @method get
+		* @url /api/v1/rank/total
+		* @return {"code":0,"data":[{"id":1,"title":"自序","content":"","catalog":"建站日记","view":4,"created_at":"2020年2月12日 14:16:11"},{"id":2,"title":"测试","content":"","catalog":"建站日记","view":3,"created_at":"2020年2月12日 17:50:44"},{"id":3,"title":"测试2","content":"","catalog":"建站日记","view":1,"created_at":"2020年2月12日 17:52:30"}],"msg":""}
+		* @remark 有点击的量才会返回，点击量为0的不会返回。
+		 */
+		v1.GET("rank/total", api.TotalRank)
 
 		// 需要登录保护的
 		auth := v1.Group("")

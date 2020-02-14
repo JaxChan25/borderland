@@ -8,6 +8,7 @@ type Article struct {
 	Title     string `json:"title"`
 	Content   string `json:"content"`
 	Catalog   string `json:"catalog"`
+	View      uint64 `json:"view"`
 	CreatedAt string `json:"created_at"`
 }
 
@@ -19,6 +20,7 @@ func BuildArticle(article model.Article, content string) Article {
 		Title:     article.Title,
 		Content:   content,
 		Catalog:   article.Catalog,
+		View:      article.ViewNumber(),
 		CreatedAt: article.CreatedAt.Format("2006年1月2日 15:04:05"),
 	}
 

@@ -26,9 +26,6 @@ func (service *ShowArticleService) Show(id string) serializer.Response {
 
 	title := article.Title
 
-	// filePath := os.Getenv("ARTICLE_ROOT") + title + ".md"
-	// content, err := ioutil.ReadFile(filePath)
-
 	objectName := "article/" + title + ".md"
 	content, err := util.GetOssStream(objectName)
 
@@ -39,6 +36,9 @@ func (service *ShowArticleService) Show(id string) serializer.Response {
 			Error: err.Error(),
 		}
 	}
+
+	//文章点击量加一
+	article.Addview()
 
 	return serializer.Response{
 		Data: serializer.BuildArticleResponse(article, content),
