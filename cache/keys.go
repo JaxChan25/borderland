@@ -19,3 +19,8 @@ const (
 func ArticleViewKey(id uint) string {
 	return fmt.Sprintf("view:article:%s", strconv.Itoa(int(id)))
 }
+
+//ArticleLikeKey 生成Article喜欢的Key
+func ArticleLikeKey(id uint) string {
+	return fmt.Sprintf("like:article:%s", strconv.Itoa(int(id)))
+}

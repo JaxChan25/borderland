@@ -33,3 +33,10 @@ func ListArticle(c *gin.Context) {
 	res := service.List()
 	c.JSON(200, res)
 }
+
+// AddArticleLike 增加article的点赞数
+func AddArticleLike(c *gin.Context) {
+	service := service.AddArticleLikeService{}
+	res := service.Add(c.Param("id"))
+	c.JSON(200, res)
+}

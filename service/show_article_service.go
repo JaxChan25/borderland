@@ -19,7 +19,7 @@ func (service *ShowArticleService) Show(id string) serializer.Response {
 	if err != nil {
 		return serializer.Response{
 			Code:  404,
-			Msg:   "视频查询失败",
+			Msg:   "文章查询失败",
 			Error: err.Error(),
 		}
 	}

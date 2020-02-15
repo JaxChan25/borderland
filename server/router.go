@@ -113,12 +113,24 @@ func NewRouter() *gin.Engine {
 
 		/**
 		* showdoc
+		* @catalog 点赞相关
+		* @title 文章点赞
+		* @description 给文章点赞数加一
+		* @method post
+		* @url /api/v1/article/like/id
+		* @param id 必选 int 主键
+		* @return {"code":0,"data":{"id":1,"title":"自序","content":"","catalog":"建站日记","view":4,"like":1,"created_at":"2020年2月12日 14:16:11"},"msg":""}
+		 */
+		v1.POST("article/like/:id", api.AddArticleLike)
+
+		/**
+		* showdoc
 		* @catalog 文章相关
 		* @title 文章列表
 		* @description 查看文章具体内容的api。
 		* @method post
 		* @url /api/v1/articles
-		* @return {"code":0,"data":[{"id":1,"title":"自序","content":"","catalog":"建站日记","created_at":"2020年2月12日 14:16:11"},{"id":2,"title":"测试","content":"","catalog":"建站日记","created_at":"2020年2月12日 17:50:44"},{"id":3,"title":"测试2","content":"","catalog":"建站日记","created_at":"2020年2月12日 17:52:30"}],"msg":""}
+		* @return {"code":0,"data":[{"id":1,"title":"自序","content":"","catalog":"建站日记","view":4,"like":0,"created_at":"2020年2月12日 14:16:11"},{"id":2,"title":"测试","content":"","catalog":"建站日记","view":0,"like":0,"created_at":"2020年2月12日 17:50:44"},{"id":3,"title":"测试2","content":"","catalog":"建站日记","view":0,"like":0,"created_at":"2020年2月12日 17:52:30"}],"msg":""}
 		 */
 		v1.GET("articles", api.ListArticle)
 

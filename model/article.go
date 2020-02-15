@@ -39,3 +39,19 @@ func (article *Article) Addview() {
 	cache.RedisClient.ZIncrBy(cache.TotalRankKey, 1, strconv.Itoa(int(article.ID)))
 
 }
+
+//LikeNumber 文章喜欢的累计数
+func (article *Article) LikeNumber() uint64 {
+
+	countStr, _ := cache.RedisClient.Get(cache.ArticleLikeKey(article.ID)).Result()
+	count, _ := strconv.ParseUint(countStr, 10, 64)
+	return count
+}
+
+//AddLike 文章喜欢+1
+func (article *Article) AddLike() {
+
+	//增加视频点击数
+	cache.RedisClient.Incr(cache.ArticleLikeKey(article.ID))
+
+}
