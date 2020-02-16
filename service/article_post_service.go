@@ -3,6 +3,7 @@ package service
 import (
 	"borderland/model"
 	"borderland/serializer"
+	"borderland/util"
 )
 
 // ArticlePostService 管理文章上传的服务
@@ -28,9 +29,24 @@ func (service *ArticlePostService) valid() *serializer.Response {
 // Post 用于文章上传
 func (service *ArticlePostService) Post() serializer.Response {
 
+	title := service.Title
+	objectName := "article/" + title + ".md"
+	content, err := util.GetOssStream(objectName)
+
+	if err != nil {
+		return serializer.Response{
+			Code:  50001,
+			Msg:   "markdown文件打开失败",
+			Error: err.Error(),
+		}
+	}
+
+	intro := util.Content2Intr(content)
+
 	article := model.Article{
-		Title:   service.Title,
-		Catalog: service.Catalog,
+		Title:        service.Title,
+		Catalog:      service.Catalog,
+		Introduction: intro,
 	}
 
 	if err := service.valid(); err != nil {

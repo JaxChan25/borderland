@@ -24,21 +24,12 @@ func (service *ShowArticleService) Show(id string) serializer.Response {
 		}
 	}
 
-	title := article.Title
-
-	objectName := "article/" + title + ".md"
-	content, err := util.GetOssStream(objectName)
-
-	if err != nil {
-		return serializer.Response{
-			Code:  50001,
-			Msg:   "markdown文件打开失败",
-			Error: err.Error(),
-		}
-	}
-
 	//文章点击量加一
 	article.Addview()
+
+	title := article.Title
+	objectName := "article/" + title + ".md"
+	content, err := util.GetOssStream(objectName)
 
 	return serializer.Response{
 		Data: serializer.BuildArticleResponse(article, content),

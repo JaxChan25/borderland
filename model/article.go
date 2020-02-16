@@ -10,8 +10,9 @@ import (
 // Article 文章模型
 type Article struct {
 	gorm.Model
-	Title   string
-	Catalog string
+	Title        string
+	Catalog      string
+	Introduction string
 }
 
 // GetArticle 用ID获取文章
