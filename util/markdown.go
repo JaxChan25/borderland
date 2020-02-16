@@ -2,6 +2,7 @@ package util
 
 import (
 	"bytes"
+	"strings"
 
 	"gopkg.in/russross/blackfriday.v2"
 )
@@ -34,6 +35,8 @@ func Content2Intr(content string) string {
 	node := parser.Parse([]byte(content))
 
 	node.Walk(NodeVisitor)
+	intr := string(buf.Bytes())
+	intr = strings.Replace(strings.Replace(intr, "\r", "", -1), "\n", "", -1)
 
-	return string([]rune(string(buf.Bytes()))[:197]) + "..."
+	return string([]rune(intr)[:197]) + "..."
 }

@@ -3,6 +3,7 @@ package util
 import (
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
@@ -35,5 +36,5 @@ func GetOssStream(objectName string) (string, error) {
 		return "", err
 	}
 
-	return string(data), nil
+	return strings.Replace(string(data), "\r", "", -1), nil
 }
