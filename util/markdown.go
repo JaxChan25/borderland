@@ -36,7 +36,14 @@ func Content2Intr(content string) string {
 
 	node.Walk(NodeVisitor)
 	intr := string(buf.Bytes())
-	intr = strings.Replace(strings.Replace(intr, "\r", "", -1), "\n", "", -1)
+	buf.Reset() //记得清空buffer
 
-	return string([]rune(intr)[:197]) + "..."
+	intr = strings.Replace(strings.Replace(intr, "\r", "", -1), "\n", "", -1)
+	intrRune := []rune(intr)
+	if len(intrRune) > 200 {
+		return string(intrRune[:197]) + "..."
+	} else {
+		return string(intrRune) + "..."
+	}
+
 }
