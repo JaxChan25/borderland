@@ -7,16 +7,22 @@ import (
 
 // ListArticleService 文章列表的服务
 type ListArticleService struct {
+	Limit int `form:"limit"`
+	Start int `form:"start"`
 }
 
 // List 展示文章列表
 func (service *ListArticleService) List() serializer.Response {
 
 	var articles []model.Article
+	total := 0
 
-	err := model.DB.Find(&articles).Error
+	if service.Limit == 0 {
+		service.Limit = 6
+	}
 
-	if err != nil {
+	//文章总数
+	if err := model.DB.Model(model.Article{}).Count(&total).Error; err != nil {
 		return serializer.Response{
 			Code:  50000,
 			Msg:   "数据库查询错误",
@@ -24,7 +30,14 @@ func (service *ListArticleService) List() serializer.Response {
 		}
 	}
 
-	return serializer.Response{
-		Data: serializer.BuildArticlesResponse(articles),
+	if err := model.DB.Limit(service.Limit).Offset(service.Start).Find(&articles).Error; err != nil {
+		return serializer.Response{
+			Code:  50000,
+			Msg:   "数据库查询错误",
+			Error: err.Error(),
+		}
 	}
+
+	return serializer.BuildListResponse(serializer.BuildArticlesResponse(articles), uint(total))
+
 }

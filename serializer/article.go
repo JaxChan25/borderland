@@ -25,7 +25,7 @@ func BuildArticle(article model.Article, content string) Article {
 		Catalog:      article.Catalog,
 		View:         article.ViewNumber(),
 		Like:         article.LikeNumber(),
-		CreatedAt:    article.CreatedAt.Format("2006年1月2日 15:04:05"),
+		CreatedAt:    article.CreatedAt.Format("2006-01-02 15:04"),
 	}
 
 }

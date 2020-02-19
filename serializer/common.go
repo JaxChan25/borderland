@@ -10,6 +10,12 @@ type Response struct {
 	Error string      `json:"error,omitempty"`
 }
 
+//DataList 基础列表结构
+type DataList struct {
+	Items interface{} `json:"items"`
+	Total uint        `json:"total"`
+}
+
 // TrackedErrorResponse 有追踪信息的错误响应
 type TrackedErrorResponse struct {
 	Response
@@ -71,4 +77,14 @@ func ParamErr(msg string, err error) Response {
 		msg = "参数错误"
 	}
 	return Err(CodeParamErr, msg, err)
+}
+
+//BuildListResponse 列表构建器
+func BuildListResponse(items interface{}, total uint) Response {
+	return Response{
+		Data: DataList{
+			Items: items,
+			Total: total,
+		},
+	}
 }

@@ -21,7 +21,7 @@ func BuildUser(user model.User) User {
 		Nickname:  user.Nickname,
 		Status:    user.Status,
 		Avatar:    user.Avatar,
-		CreatedAt: user.CreatedAt.Format("2006年1月2日 15:04:05"),
+		CreatedAt: user.CreatedAt.Format("2006-01-02 15:04"),
 	}
 }
 

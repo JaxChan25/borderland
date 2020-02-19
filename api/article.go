@@ -30,8 +30,12 @@ func ShowArticle(c *gin.Context) {
 // ListArticle 取得所有article文件
 func ListArticle(c *gin.Context) {
 	service := service.ListArticleService{}
-	res := service.List()
-	c.JSON(200, res)
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.List()
+		c.JSON(200, res)
+	} else {
+		c.JSON(200, ErrorResponse(err))
+	}
 }
 
 // AddArticleLike 增加article的点赞数
