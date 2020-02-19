@@ -38,6 +38,17 @@ func ListArticle(c *gin.Context) {
 	}
 }
 
+// ListCatalog 取得所有catalog文件
+func ListCatalog(c *gin.Context) {
+	service := service.ListCatalogService{}
+	if err := c.ShouldBind(&service); err == nil {
+		res := service.List()
+		c.JSON(200, res)
+	} else {
+		c.JSON(200, ErrorResponse(err))
+	}
+}
+
 // AddArticleLike 增加article的点赞数
 func AddArticleLike(c *gin.Context) {
 	service := service.AddArticleLikeService{}

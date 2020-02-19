@@ -134,6 +134,8 @@ func NewRouter() *gin.Engine {
 		 */
 		v1.GET("articles", api.ListArticle)
 
+		v1.GET("catalogs", api.ListCatalog)
+
 		/**
 		* showdoc
 		* @catalog 排行相关
